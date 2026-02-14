@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Letter 💌</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Envelope button */
+.envelope {
+    width: 150px;
+    height: 120px;
+    background: #ff4e73;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+    z-index: 2;
+}
+
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 50px solid #ff2a55;
+    border-radius: 10px;
+}
+
+/* Letter content hidden by default */
+.letter {
+    display: none;
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.letter img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.letter h1 {
+    color: #ff4e73;
+    margin-bottom: 10px;
+}
+
+.letter p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.signature {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff4e73;
+}
+
+/* Floating GIFs */
+.randomPic {
+    position: fixed;
+    width: 70px;
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+    transition: transform 0.5s;
+}
+</style>
+</head>
+<body>
+
+<!-- Audio -->
+<audio id="bgMusic" loop>
+    <source src="sagip.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<!-- Envelope -->
+<div class="envelope" id="envelope">Click Me 💌</div>
+
+<!-- Letter Content -->
+<div class="letter" id="letter">
+    <img src="meowmeow.gif.gif" alt="Cute GIF">
+    <h1>HELLO MADAM ❤️</h1>
+    <p>
+        Panis may pusa HAHAHAHA, You so layo and di ko alam address mo for flowers
+        but i hope this things is enough to make you smile.
+    </p>
+	<p>
+		I Really like about you is yung pagiging independent person and Confident sa sarili, ganda ih mheheHAHA.
+		I know we're not open sa isa't isa but i'm always here for you if may kailangan ka.	
+	</p>
+    <p>
+
+		just like this song im here lang so sagip you, superman yarn HAHAHAH
+        More sidequest and hiking to come with you!!
+        Thankyou Madam and Happy valentines Day!!
+    </p>
+    <div class="signature">FROM,<br>[NERVY]</div>
+</div>
+
+<script>
+// HELPER FUNCTION to create a random GIF
+function createRandomImage(src, size) {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "randomPic";
+    document.body.appendChild(img);
+
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    const x = Math.random() * (w - size);
+    const y = Math.random() * (h - size);
+
+    img.style.left = x + "px";
+    img.style.top = y + "px";
+    img.style.width = `${size}px`;
+    img.style.transform = `rotate(${Math.random() * 360}deg)`;
+}
+
+// CREATE ALL RANDOM GIFS AFTER LETTER OPENS
+function createFloatingGIFs() {
+    const mingGifs = ["ming1.webp","ming2.webp","ming3.webp","ming4.webp","ming5.webp"];
+    const catGifs = ["cat2.gif","cat3.gif"];
+
+    // 5 copies each for ming and cat GIFs
+    mingGifs.forEach(name => {
+        for (let i = 0; i < 5; i++) createRandomImage(name, 70);
+    });
+    catGifs.forEach(name => {
+        for (let i = 0; i < 5; i++) createRandomImage(name, 70);
+    });
+}
+
+// Envelope click to show letter
+const envelope = document.getElementById("envelope");
+const letter = document.getElementById("letter");
+const bgMusic = document.getElementById("bgMusic");
+
+envelope.addEventListener("click", () => {
+    envelope.style.display = "none"; // hide envelope
+    letter.style.display = "block";  // show letter
+    createFloatingGIFs();            // create GIFs
+
+    // Play music
+    bgMusic.play().catch(err => console.log("Autoplay blocked"));
+});
+</script>
+
+</body>
+</html>
